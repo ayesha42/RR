@@ -1,47 +1,70 @@
-no_process = input('Enter no of Processes in range(1-20): ')
-time_slice = input('Enter time slice: ')
-b_time = [0]*100
-f_time = [0]*100
-a_time = [0]*100
-t_time = [0]*100
-w_time = [0]*100
-compare_time = [0]*100
-turnaround = 0
-j = 1
-final = 0
-c = 0
-z=1
+b_time   = [0]*100
+a_time   = [0] * 100
+process  = [4]
+
 p_time = 0
+list = [0]*4
+process = [0]*4
 
 
-for x in range(no_process):
-	a_time[x]= input('Enter arrival Time:')
+
+no_process = input("Enter number of processes")
+
+time_slice = input("Enter time slice")
 print '\n'
-for y in range(no_process):
-	b_time[y] = input('Enter Bus Time:')
-print '\n'
+
+for i in range(no_process):
+	dict = {}
+	list[i] = dict
+	process = input("Enter processes id ")
+	list[i]['process'] = process
+	arrival = input("Enter arrival time ")
+	list[i]['arival_time'] = arrival
+	burst = input("Enter burst time ")
+	list[i]['burst_time'] = burst
+	list[i]['remaining_time'] = list[i]['burst_time']
+	print '\n'
 
 
-
-
-for y in range(no_process - 1):
+for i in range(no_process - 1):
 	for  c in range(no_process - 1):
-		if b_time[c] > b_time[c+1]:
-			 temp = b_time[c]
-	                 temp_arrival = a_time[c]
-			 b_time[c] = b_time[c+1]
-			 a_time[c] = a_time[c+1]
-			 b_time[c+1] =temp
-			 a_time[c+1] =temp_arrival 
-c=0
-for z in range(no_process):
+		if list[i]['arival_time'] > list[i+1]['arival_time']:
+			 temp    = list[i]
+			 list[i] = list[i+1]
+			 
+			 list[i+1]=temp
+			 
 
-	for c in range(time_slice):
-                if turnaround == b_time[c]:
-		  break
-                else:
-		  turnaround = turnaround + 1
-		  
-        
+
+for i in range(no_process):
+	if list[i]['remaining_time'] > time_slice:
+
+	   for j in range(time_slice):
+	  
+	     p_time = p_time + 1
+	     list[i]['remaining_time'] = list[i]['burst_time'] - p_time
+            
+	else:
+
+	   while list[i]['remaining_time'] > 0:
+	     p_time = p_time + 1
+             list[i]['remaining_time'] = list[i]['burst_time'] - p_time
+print 'Turnaround time for process', list[i]['process'], 'is',p_time 
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
